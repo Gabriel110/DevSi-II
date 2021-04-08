@@ -1,57 +1,118 @@
-import React, { useContext, useState } from 'react';
-import { Text, View, StyleSheet, TextInput, Picker } from 'react-native';
+import React, { useContext } from 'react';
+import { Text, View, StyleSheet, Switch, Slider, TouchableOpacity } from 'react-native';
+import Pickers from './Pickers';
 
-//import CursosContext from '../context/CursosContext';
+import BolsaContext from '../context/BolsasContext';
+import InputText from './InputText';
+
 
 const Form = () => {
-  
+  const {
+    nome,
+    setNome,
+    curso,
+    setCurso,
+    periodo,
+    setPeriodo,
+    turno,
+    setTurno,
+    sexo,
+    setSexo,
+    idade,
+    setIdade,
+    bolsa,
+    setBolsa
+  } = useContext(BolsaContext);
   return (
     <View style={style.container}>
       <Text style={style.textH1}> Selecione os Parametros: </Text>
-      <TextInput
-        style={style.textInput}
-        placeholder="Entre com seu nome completo"
-        //onChangeText={text => setNome(text)}
+
+      <InputText
+        setNome={setNome}
+        titulo="Nome"
+        place="Entre com o seu nome"
       />
-      <Picker
-        //selectedValue={curso}
-        style={style.selectPicker}
-        //onValueChange={(itemValue, itemIndex) => setCurso(itemValue)}
-      >
-        <Picker.Item label="Curso" value="Curso" />
-        <Picker.Item label="Medicina" value="Medicina" />
-        <Picker.Item label="Agronomia" value="Agronomia" />
-        <Picker.Item label="Fisica" value="Fisica" />
-      </Picker>
-
-      <Picker
-        //selectedValue={periodo}
-        style={style.selectPicker}
-        //onValueChange={(itemValue, itemIndex) => setPeriodo(itemValue)}
-      >
-        <Picker.Item label="Periodo" value="Periodo" />
-        <Picker.Item label="1" value="1" />
-        <Picker.Item label="2" value="2" />
-        <Picker.Item label="3" value="3" />
-      </Picker>
-
-      <Picker
-        //selectedValue={turno}
-        style={style.selectPicker}
-        //onValueChange={(itemValue, itemIndex) => setTurno(itemValue)}
-      >
-        <Picker.Item label="Turno" value="Turno" />
-        <Picker.Item label="Noturno" value="Noturno" />
-        <Picker.Item label="Diurno" value="Diurno" />
-        <Picker.Item label="Integral" value="Integralcls" />
-      </Picker>
-
-      <TextInput
-        style={style.textInput}
-        placeholder="Entre com sua Idade"
-        //onChangeText={text => setNome(text)}
+      <Pickers
+        curso={curso}
+        setCurso={setCurso}
+        place="Selecione o Curso"
+        titulo="Curso"
+        intens={[
+          { key: 1, name: 'Admnistração' },
+          { key: 2, name: 'Ciências Contábeis' },
+          { key: 3, name: 'Engenharia Mecânica' },
+          { key: 4, name: 'Engenharia Elétrica' },
+          { key: 5, name: 'Matemática' },
+          { key: 6, name: 'Publicidade e Propaganda' },
+          { key: 7, name: 'Sistemas de Informação', }
+        ]}
       />
-      
+      <Pickers
+        curso={periodo}
+        setCurso={setPeriodo}
+        place="Selecione o Periodo"
+        titulo="Periodo"
+        intens={[
+          { key: 1, name: '1' },
+          { key: 2, name: '2' },
+          { key: 3, name: '3' },
+          { key: 4, name: '4' },
+          { key: 5, name: '5' },
+          { key: 6, name: '6' },
+          { key: 7, name: '7', }
+        ]}
+      />
+      <Pickers
+        curso={turno}
+        setCurso={setTurno}
+        place="Selecione o Turno"
+        titulo="Turno"
+        intens={[
+          { key: 1, name: 'Integral' },
+          { key: 2, name: 'Noturno' },
+          { key: 3, name: 'Diurno' },
+        ]}
+      />
+      <InputText
+        setNome={setIdade}
+        titulo="Idade"
+        place="Entre com o sua idade"
+      />
+      <Pickers
+        curso={sexo}
+        setCurso={setSexo}
+        place="Selecione o Sexo"
+        titulo="Sexo"
+        intens={[
+          { key: 1, name: 'Masculino' },
+          { key: 2, name: 'Feminio' },
+        ]}
+      />
+
+      <View style={style.switchView}>
+        <Text style={style.switchText}>Possui bolsa:</Text>
+        <Switch
+          trackColor={{ false: "#767577", true: "#81b0ff" }}
+          thumbColor={bolsa ? "#f5dd4b" : "#f4f3f4"}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={setBolsa}
+          value={bolsa}
+        />
+        <Text style={style.switchText}>Renda:</Text>
+        <Slider
+          style={{width:150}}
+          minimumValue={-10}
+          maximumValue={4002}
+          minimumTrackTintColor='#1fb28a'
+          maximumTrackTintColor='#d3d3d3'
+          thumbTintColor='#1a9274'
+        />
+      </View>
+      <TouchableOpacity
+        style={style.button}
+      >
+        <Text style={style.buttonText}>Enviar</Text>
+      </TouchableOpacity>
     </View >
   );
 }
@@ -65,23 +126,30 @@ const style = StyleSheet.create({
   textH1: {
     fontSize: 20
   },
-  textInput: {
-    width: 300,
-    height: 50,
-    fontSize: 15,
-    borderWidth: 1,
-    margin: 10,
-    borderRadius: 10,
-    textAlign: 'center'
+  switchView: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'flex-start'
   },
-  selectPicker: {
-    width: 300,
-    height: 50,
-    fontSize: 15,
-    borderWidth: 1,
-    margin: 10,
-    borderRadius: 10,
-    textAlign: 'center'
+  switchText: {
+    margin: 4,
+    fontSize: 16
+  },
+  button:{
+    width:200,
+    height:40,
+    backgroundColor:"green",
+    borderRadius:10,
+    margin:10,
+    alignItems:'center',
+    justifyContent:'center'
+  },
+  buttonText:{
+    fontSize:18,
+    fontWeight:'bold',
+    color:'white'
   }
 })
 

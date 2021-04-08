@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
-import { StatusBar } from 'react-native';
+import { ScrollView, StatusBar } from 'react-native';
 import Form from '../componentes/Form';
 import Header from '../componentes/Header';
+import { BolasaProvider } from '../context/BolsasContext';
 
 
 const Home = () => {
@@ -10,8 +11,12 @@ const Home = () => {
       <StatusBar
         backgroundColor="green"
       />
-      <Header/>
-      <Form/>
+      <Header />
+      <BolasaProvider>
+        <ScrollView>
+          <Form />
+        </ScrollView>
+      </BolasaProvider>
     </Fragment>
   )
 }
