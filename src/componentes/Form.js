@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { Text, View, StyleSheet, Switch, Slider, TouchableOpacity } from 'react-native';
 import Pickers from './Pickers';
-
+import { Link } from '@react-navigation/native';
 import BolsaContext from '../context/BolsasContext';
 import InputText from './InputText';
 
-
-const Form = () => {
+const Form = (props) => {
+  const {navigation} = props;
   const {
     nome,
     setNome,
@@ -110,6 +110,7 @@ const Form = () => {
       </View>
       <TouchableOpacity
         style={style.button}
+        onPress={()=>{ navigation.navigate('Resp')}}
       >
         <Text style={style.buttonText}>Enviar</Text>
       </TouchableOpacity>
