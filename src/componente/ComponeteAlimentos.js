@@ -9,7 +9,7 @@ const ComponeteAlimentos = (props) =>{
       <Image source={imgBraike} style={style.img}/>
       <View style={style.continerText}>
         <Text style={style.TextNome}>{nome}</Text>
-        <Text style={style.TextPerecivel}>{perecivel?"perecivel":"Não perecivel"}</Text>
+        <Text style={style.TextPerecivel}>{perecivel}</Text>
       </View>
     </View>
   )
@@ -34,6 +34,7 @@ const style = StyleSheet.create({
     height:150,
   },
   TextNome:{
+    alignSelf:'flex-start',
     fontSize:20,
     fontWeight:'bold',
     marginBottom:20,
@@ -47,7 +48,9 @@ const style = StyleSheet.create({
     paddingBottom:5,
     paddingLeft:8,
     paddingRight:8,
-    borderRadius:4
+    borderRadius:4,
+    width:130,
+    textAlign:'center'
   }
 });
 export default ComponeteAlimentos;
